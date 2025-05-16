@@ -61,7 +61,7 @@ O candidato deve realizar um fork deste repositório, implementar as funcionalid
 
 ### Notas
 
-- [https://www.figma.com/design/CUAX5R7iffWvB35mCCQ6hl/Teste-flutter---alloy?node-id=0-1&t=tBoKfYXv1RFNR8QM-1](Link para design no Figma)
+- [Link para design no Figma](https://www.figma.com/design/CUAX5R7iffWvB35mCCQ6hl/Teste-flutter---alloy?node-id=0-1&t=tBoKfYXv1RFNR8QM-1)
 - Os componentes de UI para o modal e gerenciamento de clientes já estão fornecidos e podem ser reutilizados na implementação.
 - O candidato deve focar na implementação do gerenciamento de estado e garantir que todas as mesas e clientes sejam corretamente gerenciados dentro de suas respectivas stores.
 
