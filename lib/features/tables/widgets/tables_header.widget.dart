@@ -3,6 +3,8 @@ import 'package:teste_flutter/features/tables/widgets/customers_counter.widget.d
 import 'package:teste_flutter/shared/widgets/search_input.widget.dart';
 import 'package:teste_flutter/utils/extension_methos/material_extensions_methods.dart';
 
+import '../entities/table.entity.dart';
+import '../stores/table_store.dart';
 import 'new_table_modal_content.widget.dart';
 
 class TablesHeader extends StatelessWidget {
@@ -30,9 +32,19 @@ class TablesHeader extends StatelessWidget {
             FloatingActionButton(
               onPressed: () {
                 debugPrint('criar nova mesa');
+
+                final initialTableEntity = TableEntity(
+                  id: 10,
+                  identification: '',
+                  customers: [],
+                );
+
+                final tableStore = TableStore(initialTableEntity);
                 showDialog(
                     context: context,
-                    builder: (context) => const NewTableModalContent());
+                    builder: (context) => NewTableModalContent(
+                          tableStore: tableStore,
+                        ));
               },
               tooltip: 'Criar nova mesa',
               child: const Icon(Icons.add),
