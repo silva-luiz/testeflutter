@@ -1,28 +1,40 @@
 import 'package:flutter/material.dart';
-import 'package:teste_flutter/features/tables/widgets/table_card.widget.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:teste_flutter/injection_container.dart';
+import '../stores/tables_store.dart';
 
 class TablesList extends StatelessWidget {
-  TablesList({super.key});
-
-  final tables = List.generate(10, (index) => index).toList();
+  const TablesList({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        padding: const EdgeInsets.all(12),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Wrap(
-              spacing: 10,
-              runSpacing: 10,
-              children: tables
-                  .map(
-                    (e) => const TableCard(),
-                  )
-                  .toList(),
-            ),
-          ],
-        ));
+    final tablesStore = sl<TablesStore>();
+
+    return Observer(
+      builder: (_) {
+        final tables = tablesStore.tables;
+
+        if (tables.isEmpty) {
+          return const Padding(
+            padding: EdgeInsets.all(16),
+            child: Text("Nenhuma mesa cadastrada."),
+          );
+        }
+        return ListView.separated(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: tables.length,
+          separatorBuilder: (_, __) => const Divider(),
+          itemBuilder: (_, index) {
+            final tableStore = tables[index];
+            return ListTile(
+              title: Text(tableStore.identification),
+              subtitle: Text('${tableStore.customerCount} pessoas'),
+              onTap: () {},
+            );
+          },
+        );
+      },
+    );
   }
 }
