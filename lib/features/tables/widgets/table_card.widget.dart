@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:teste_flutter/features/tables/stores/table_store.dart';
 import 'package:teste_flutter/features/tables/widgets/customers_counter.widget.dart';
 import 'package:teste_flutter/utils/extension_methos/material_extensions_methods.dart';
 
@@ -6,8 +7,11 @@ const double _innerPadding = 1.0;
 const double _topPadding = 5.0;
 
 class TableCard extends StatelessWidget {
+  final TableStore table;
+
   const TableCard({
     super.key,
+    required this.table,
   });
 
   @override
@@ -24,7 +28,7 @@ class TableCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Center(
-            child: Text(('{identification}').toUpperCase(),
+            child: Text(table.identification.toUpperCase(),
                 style: context.textTheme.bodyMedium?.copyWith(
                     color: context.appColors.green,
                     fontWeight: FontWeight.w500)),
@@ -44,7 +48,7 @@ class TableCard extends StatelessWidget {
                 padding: const EdgeInsets.all(10),
                 child: Column(children: [
                   CustomersCounter(
-                    label: '{sum_customers}',
+                    label: '${table.customerCount} clientes',
                     iconWidth: 16,
                     color: context.appColors.darkGrey,
                     textStyle: context.textTheme.bodySmall

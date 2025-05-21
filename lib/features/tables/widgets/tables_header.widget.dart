@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:teste_flutter/features/tables/widgets/customers_counter.widget.dart';
+import 'package:teste_flutter/injection_container.dart';
 import 'package:teste_flutter/shared/widgets/search_input.widget.dart';
 import 'package:teste_flutter/utils/extension_methos/material_extensions_methods.dart';
 
 import '../entities/table.entity.dart';
 import '../stores/table_store.dart';
+import '../stores/tables_store.dart';
 import 'new_table_modal_content.widget.dart';
 
 class TablesHeader extends StatelessWidget {
@@ -30,7 +32,7 @@ class TablesHeader extends StatelessWidget {
             const CustomersCounter(label: '{sum_customers}'),
             const SizedBox(width: 20),
             FloatingActionButton(
-              onPressed: () {
+              onPressed: () async {
                 debugPrint('criar nova mesa');
 
                 final initialTableEntity = TableEntity(
@@ -40,11 +42,17 @@ class TablesHeader extends StatelessWidget {
                 );
 
                 final tableStore = TableStore(initialTableEntity);
-                showDialog(
-                    context: context,
-                    builder: (context) => NewTableModalContent(
-                          tableStore: tableStore,
-                        ));
+                final result = await showDialog(
+                  context: context,
+                  builder: (context) => NewTableModalContent(
+                    tableStore: tableStore,
+                  ),
+                );
+                if (result != null) {
+                  final tablesStore = sl<TablesStore>();
+                  tablesStore.addTable(TableStore(result));
+                  debugPrint('Nova mesa adicionada: ${result.identification}');
+                }
               },
               tooltip: 'Criar nova mesa',
               child: const Icon(Icons.add),

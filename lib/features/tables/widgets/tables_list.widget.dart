@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:teste_flutter/injection_container.dart';
 import '../stores/tables_store.dart';
+import 'table_card.widget.dart';
 
 class TablesList extends StatelessWidget {
   const TablesList({super.key});
@@ -20,19 +21,15 @@ class TablesList extends StatelessWidget {
             child: Text("Nenhuma mesa cadastrada."),
           );
         }
-        return ListView.separated(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          itemCount: tables.length,
-          separatorBuilder: (_, __) => const Divider(),
-          itemBuilder: (_, index) {
-            final tableStore = tables[index];
-            return ListTile(
-              title: Text(tableStore.identification),
-              subtitle: Text('${tableStore.customerCount} pessoas'),
-              onTap: () {},
-            );
-          },
+        return Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: Wrap(
+            spacing: 16,
+            runSpacing: 16,
+            children: tables.map((table) {
+              return TableCard(table: table);
+            }).toList(),
+          ),
         );
       },
     );
