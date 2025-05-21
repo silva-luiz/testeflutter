@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:teste_flutter/features/tables/stores/table_store.dart';
 import 'package:teste_flutter/features/customers/entities/customer.entity.dart';
+import 'package:teste_flutter/utils/extension_methos/material_extensions_methods.dart';
 
 class CounterInput extends StatelessWidget {
   final TableStore tableStore;
@@ -37,31 +38,46 @@ class CounterInput extends StatelessWidget {
                   ),
                 ),
               ),
-              IconButton(
-                icon: const Icon(Icons.remove),
-                onPressed: value > 0
-                    ? () => tableStore.removeCustomer(value - 1)
-                    : null,
-                splashRadius: 20,
-                visualDensity: VisualDensity.compact,
-                padding: EdgeInsets.zero,
-                constraints: const BoxConstraints(),
+              const SizedBox(
+                width: 4,
               ),
-              IconButton(
-                icon: const Icon(Icons.add),
-                onPressed: () {
-                  final id = tableStore.customerCount + 1;
-                  tableStore.addCustomer(CustomerEntity(
-                    id: id,
-                    name: 'Cliente $id',
-                    phone: 'Não informado',
-                  ));
-                },
-                splashRadius: 50,
-                visualDensity: VisualDensity.compact,
-                padding: EdgeInsets.zero,
-                constraints: const BoxConstraints(),
-              )
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                child: MouseRegion(
+                  cursor: SystemMouseCursors.click,
+                  child: GestureDetector(
+                    onTap: value > 0
+                        ? () => tableStore.removeCustomer(value - 1)
+                        : null,
+                    child: Icon(
+                      Icons.remove,
+                      size: 24,
+                      color: context.appColors.darkGrey,
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                child: MouseRegion(
+                  cursor: SystemMouseCursors.click,
+                  child: GestureDetector(
+                    onTap: () {
+                      final id = tableStore.customerCount + 1;
+                      tableStore.addCustomer(CustomerEntity(
+                        id: id,
+                        name: 'Cliente $id',
+                        phone: 'Não informado',
+                      ));
+                    },
+                    child: Icon(
+                      Icons.add,
+                      size: 24,
+                      color: context.appColors.darkGrey,
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
         );

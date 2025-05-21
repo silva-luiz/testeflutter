@@ -16,7 +16,7 @@ abstract class _TablesStoreBase with Store {
   int get totalCustomers => tables.fold(
         0,
         (previousValue, table) => previousValue + table.customers.length,
-      );
+      ); 
 
   @action
   void addTable(TableStore tableStore) {
