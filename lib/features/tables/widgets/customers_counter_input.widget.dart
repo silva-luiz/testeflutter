@@ -34,6 +34,7 @@ class _CounterInputState extends State<CounterInput> {
         children: [
           Expanded(
             child: TextFormField(
+              readOnly: true,
               controller: _controller,
               textAlign: TextAlign.start,
               keyboardType: TextInputType.number,
