@@ -12,6 +12,12 @@ abstract class _TablesStoreBase with Store {
   @computed
   int get totalTables => tables.length;
 
+  @computed
+  int get totalCustomers => tables.fold(
+        0,
+        (previousValue, table) => previousValue + table.customers.length,
+      );
+
   @action
   void addTable(TableStore tableStore) {
     tables.add(tableStore);

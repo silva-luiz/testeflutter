@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:teste_flutter/features/tables/widgets/customers_counter.widget.dart';
 import 'package:teste_flutter/injection_container.dart';
 import 'package:teste_flutter/shared/widgets/search_input.widget.dart';
@@ -10,7 +11,9 @@ import '../stores/tables_store.dart';
 import 'new_table_modal_content.widget.dart';
 
 class TablesHeader extends StatelessWidget {
-  const TablesHeader({super.key});
+  TablesHeader({super.key});
+
+  final TablesStore tablesStore = sl<TablesStore>();
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +32,19 @@ class TablesHeader extends StatelessWidget {
               onChanged: (value) => {},
             ),
             const SizedBox(width: 20),
-            const CustomersCounter(label: '{sum_customers}'),
+            Observer(
+              builder: (_) {
+                final totalCustomers = tablesStore.tables
+                    .map((table) => table.customers.length)
+                    .fold<int>(0, (prev, count) => prev + count);
+
+                return CustomersCounter(
+                  label: '$totalCustomers clientes',
+                  iconWidth: 20,
+                  color: Colors.black,
+                );
+              },
+            ),
             const SizedBox(width: 20),
             FloatingActionButton(
               onPressed: () async {
