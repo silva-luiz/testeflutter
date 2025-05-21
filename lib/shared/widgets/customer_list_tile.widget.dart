@@ -16,40 +16,43 @@ class CustomerListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        border: Border.all(
-          color: context.appColors.grey!,
-        ),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: ListTile(
-        leading: SvgPicture.asset(
-          AppIcons.user,
-          width: 24,
-          height: 24,
-        ),
-        title: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                customerName,
-                style:
-                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-              ),
-              Text(
-                customerPhone,
-                style: const TextStyle(fontSize: 14),
-              ),
-            ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Container(
+        decoration: BoxDecoration(
+          border: Border.all(
+            color: context.appColors.grey!,
           ),
+          borderRadius: BorderRadius.circular(8),
         ),
-        trailing: SvgPicture.asset(
-          AppIcons.search,
-          width: 24,
-          height: 24,
+        child: ListTile(
+          leading: SvgPicture.asset(
+            AppIcons.user,
+            width: 24,
+            height: 24,
+          ),
+          title: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  customerName,
+                  style: const TextStyle(
+                      fontWeight: FontWeight.bold, fontSize: 14),
+                ),
+                Text(
+                  customerPhone,
+                  style: const TextStyle(fontSize: 14),
+                ),
+              ],
+            ),
+          ),
+          trailing: SvgPicture.asset(
+            AppIcons.search,
+            width: 24,
+            height: 24,
+          ),
         ),
       ),
     );
